@@ -1,0 +1,44 @@
+[common-config]
+logging.CRITICAL = 50
+logging.ERROR = 40
+logging.WARNING = 30
+logging.INFO = 20
+logging.DEBUG = 10
+
+[configure-ovs]
+logging-level = logging.DEBUG
+dbSock = /usr/local/var/run/openvswitch/db.sock
+userPassword = ga22me
+numberOfVm = 2
+portNames = r1-eth0, r2-eth0
+vmSections = vm1, vm2
+bridgeIp = 192.168.10.1
+bridgeName = bridge1
+
+[sshConfig]
+user = root
+sshFilePath = /root/.ssh/id_rsa.pub
+remoteHostIpRangeStart = 192.168.10.2
+remoteHostIpRangeEnd = 192.168.10.3
+
+[vm1]
+ramSize = 128
+vmName = guest1
+macAddr = 52:54:00:00:01:00
+ifname = r1-eth0
+upScript = /etc/openvswitch/ovs-ifup
+downScript = /etc/openvswitch/ovs-ifdown
+imgFile = /home/hades/qemuImages/guest1.img
+ipAddr = 192.168.10.2
+netmask = 255.255.255.0
+
+[vm2]
+ramSize = 128
+vmName = guest2
+macAddr = 52:54:00:00:02:00
+ifname = r2-eth0
+upScript = /etc/openvswitch/ovs-ifup
+downScript = /etc/openvswitch/ovs-ifdown
+imgFile = /home/hades/qemuImages/guest2.img
+ipAddr = 192.168.10.3
+netmask = 255.255.255.0
